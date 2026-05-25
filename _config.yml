@@ -1,0 +1,23 @@
+title: "PepsiCo × Microsoft — Data & AI Workshop (Day 1)"
+description: "Hands-on Microsoft Fabric, Azure SQL VECTOR, Microsoft Purview, and Azure Machine Learning workshop."
+theme: jekyll-theme-cayman
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - Instructions
+exclude:
+  - infra
+  - Allfiles
+  - .github
+  - README.md
+  - "*.bicep"
+  - "*.ps1"
+  - "*.py"

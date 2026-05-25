@@ -1,0 +1,12 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: blue
+endpoint_name: mlep-pepsi-quality-team01
+model: azureml:quality-model-team01:1
+code_configuration:
+  code: ./
+  scoring_script: score.py
+environment:
+  conda_file: env.yml
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu22.04
+instance_type: Standard_DS2_v2
+instance_count: 1

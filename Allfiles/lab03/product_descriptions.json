@@ -1,0 +1,87 @@
+[
+  {
+    "product_id": "P001",
+    "title": "Gatorade Frost 28oz",
+    "content": "Gatorade Frost is a thirst quencher engineered for athletes. It delivers a precise mix of carbohydrates, sodium, and potassium to replace what you lose in sweat. Frost flavors lean cool and citrusy. Best served chilled before, during, and after exercise lasting longer than 60 minutes."
+  },
+  {
+    "product_id": "P002",
+    "title": "Gatorade Cool Blue 28oz",
+    "content": "Cool Blue is one of the most-requested Gatorade flavors. Sweet, refreshing, and easy to drink at scale, it is a favorite for team sports, outdoor events, and long shifts in hot weather. Same electrolyte profile as Frost."
+  },
+  {
+    "product_id": "P003",
+    "title": "Gatorade Glacier Freeze 28oz",
+    "content": "Glacier Freeze delivers a clean, slightly minty finish. It is a top seller in summer months and is regularly featured in NFL and NBA team coolers. Recommended for hot-weather hydration."
+  },
+  {
+    "product_id": "P004",
+    "title": "Gatorade Zero Lemon-Lime",
+    "content": "Gatorade Zero is the sugar-free option in the Gatorade lineup. Same electrolytes, no sugar, no calories. Designed for athletes who want hydration without the carbs."
+  },
+  {
+    "product_id": "P005",
+    "title": "Mountain Dew Kickstart",
+    "content": "Kickstart is a morning energy drink blending Mountain Dew with juice and a moderate caffeine kick. Sized for grab-and-go, popular with morning commuters and shift workers."
+  },
+  {
+    "product_id": "P011",
+    "title": "Aquafina 20oz",
+    "content": "Aquafina is purified bottled water, our flagship still-water brand. It is a low-sugar, zero-calorie hydration option. Often paired with sports drinks in athletic settings to alternate hydration."
+  },
+  {
+    "product_id": "P012",
+    "title": "LIFEWTR 23.7oz",
+    "content": "LIFEWTR is a premium, pH-balanced purified water enhanced with electrolytes for taste. It is positioned for the wellness segment and is often co-merchandised with healthy snacks."
+  },
+  {
+    "product_id": "P015",
+    "title": "Lay's Classic 2.625oz",
+    "content": "Lay's Classic is the original salted potato chip. It is the largest single SKU in the salty-snack category by volume. Pairs naturally with sandwiches and is a staple of lunch combos."
+  },
+  {
+    "product_id": "P016",
+    "title": "Doritos Nacho Cheese 2.75oz",
+    "content": "Doritos Nacho Cheese is the leading flavored tortilla chip in the U.S. Strong appeal with the 18-34 demographic, especially during gaming and movie occasions."
+  },
+  {
+    "product_id": "P019",
+    "title": "SunChips Harvest Cheddar",
+    "content": "SunChips Harvest Cheddar is a multigrain snack chip with a wholesome positioning. Lower fat than traditional potato chips. Popular with the school-lunch and better-for-you shoppers."
+  },
+  {
+    "product_id": "P022",
+    "title": "Quaker Chewy Granola Bar",
+    "content": "Quaker Chewy is a soft granola bar that is widely used in school lunchboxes and as a between-meal snack. It is whole-grain and has multiple flavor variants including chocolate chip and peanut butter."
+  },
+  {
+    "product_id": "P023",
+    "title": "Gatorade Recover Whey Bar",
+    "content": "The Gatorade Recover Whey Bar contains 20g of protein and is positioned for post-workout recovery, especially within 30 minutes of exercise. Recommended pairing with Gatorade Zero."
+  },
+  {
+    "product_id": "P024",
+    "title": "Quaker Oats Old Fashioned",
+    "content": "Quaker Old Fashioned Oats are 100% whole grain. A staple breakfast option with cardiac-health positioning. Often co-promoted with fruit and milk."
+  },
+  {
+    "policy_id": "POL-001",
+    "title": "Returns and refunds policy",
+    "content": "Damaged, defective, or incorrect products may be returned within 30 days of purchase for a full refund. Receipts are required for refunds above 25 USD. Perishable items must be returned within 7 days. Online orders may be returned by mail using a prepaid label issued from the order page."
+  },
+  {
+    "policy_id": "POL-002",
+    "title": "Promotional pricing rules",
+    "content": "Promotional prices apply only when the buyer presents a coupon or activates the digital offer in the loyalty app. Stacking of multiple promotions on a single SKU is not permitted. Promotional pricing for sports drinks during summer (June, July, August) is set by the regional category team and may differ by retailer."
+  },
+  {
+    "policy_id": "POL-003",
+    "title": "Cold-chain handling for sports drinks",
+    "content": "Gatorade is shelf-stable; refrigeration is not required for safety. However, all bottles intended for sale chilled (single-serve 20oz/28oz) must be held below 40 F at point of sale. Display coolers must be cleaned weekly and stocked from the back to rotate inventory."
+  },
+  {
+    "policy_id": "POL-004",
+    "title": "Field-rep planogram compliance",
+    "content": "Field representatives are expected to verify shelf planogram compliance at every covered store visit. Out-of-stock SKUs must be reported in the field app within 4 hours of detection. Repeated non-compliance triggers a regional manager review."
+  }
+]

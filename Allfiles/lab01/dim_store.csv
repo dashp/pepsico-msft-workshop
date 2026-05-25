@@ -1,0 +1,51 @@
+store_id,store_name,city,state,region
+S001,HEB-Austin-South,Austin,TX,South Central
+S002,HEB-Austin-North,Austin,TX,South Central
+S003,HEB-Houston-Galleria,Houston,TX,South Central
+S004,HEB-Dallas-Uptown,Dallas,TX,South Central
+S005,HEB-San-Antonio-Center,San Antonio,TX,South Central
+S006,HEB-El-Paso,El Paso,TX,South Central
+S007,Walmart-Plano-Legacy,Plano,TX,South Central
+S008,Walmart-Frisco,Frisco,TX,South Central
+S009,Walmart-Arlington,Arlington,TX,South Central
+S010,Walmart-Fort-Worth,Fort Worth,TX,South Central
+S011,Kroger-Atlanta-Buckhead,Atlanta,GA,Southeast
+S012,Kroger-Atlanta-Midtown,Atlanta,GA,Southeast
+S013,Publix-Tampa-Bay,Tampa,FL,Southeast
+S014,Publix-Orlando-Disney,Orlando,FL,Southeast
+S015,Publix-Miami-Beach,Miami,FL,Southeast
+S016,Wegmans-NYC-Brooklyn,Brooklyn,NY,Northeast
+S017,Wegmans-Boston-Fenway,Boston,MA,Northeast
+S018,Stop-Shop-Hartford,Hartford,CT,Northeast
+S019,Giant-Philadelphia,Philadelphia,PA,Northeast
+S020,ShopRite-Newark,Newark,NJ,Northeast
+S021,Meijer-Chicago-Loop,Chicago,IL,Midwest
+S022,Meijer-Detroit,Detroit,MI,Midwest
+S023,Hy-Vee-Des-Moines,Des Moines,IA,Midwest
+S024,Mariano-Milwaukee,Milwaukee,WI,Midwest
+S025,Cub-Minneapolis,Minneapolis,MN,Midwest
+S026,Safeway-Denver-LoDo,Denver,CO,Mountain
+S027,King-Soopers-Boulder,Boulder,CO,Mountain
+S028,Smith-Salt-Lake,Salt Lake City,UT,Mountain
+S029,Albertsons-Phoenix,Phoenix,AZ,Mountain
+S030,Bashas-Tucson,Tucson,AZ,Mountain
+S031,Safeway-Seattle-Capitol,Seattle,WA,Pacific
+S032,Fred-Meyer-Portland,Portland,OR,Pacific
+S033,Safeway-SF-Marina,San Francisco,CA,Pacific
+S034,Ralphs-LA-Hollywood,Los Angeles,CA,Pacific
+S035,Ralphs-LA-Westwood,Los Angeles,CA,Pacific
+S036,Vons-San-Diego,San Diego,CA,Pacific
+S037,Vons-Sacramento,Sacramento,CA,Pacific
+S038,Walmart-Las-Vegas,Las Vegas,NV,Mountain
+S039,Walmart-Reno,Reno,NV,Mountain
+S040,Walmart-Albuquerque,Albuquerque,NM,Mountain
+S041,Walmart-OKC,Oklahoma City,OK,South Central
+S042,Walmart-Tulsa,Tulsa,OK,South Central
+S043,Walmart-Little-Rock,Little Rock,AR,South Central
+S044,Walmart-Memphis,Memphis,TN,Southeast
+S045,Walmart-Nashville,Nashville,TN,Southeast
+S046,Walmart-Charlotte,Charlotte,NC,Southeast
+S047,Walmart-Raleigh,Raleigh,NC,Southeast
+S048,Walmart-Columbus,Columbus,OH,Midwest
+S049,Walmart-Indianapolis,Indianapolis,IN,Midwest
+S050,Walmart-Louisville,Louisville,KY,Southeast

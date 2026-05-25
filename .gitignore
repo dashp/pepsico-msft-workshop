@@ -1,0 +1,33 @@
+# Jekyll build artefacts
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
+
+# Ruby
+Gemfile.lock
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local secrets — never commit
+.env
+*.local
+*.key
+*.pem
+
+# Bicep generated ARM
+infra/**/*.json
+!infra/**/sample_request.json

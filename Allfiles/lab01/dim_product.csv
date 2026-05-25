@@ -1,0 +1,26 @@
+product_id,product_name,category,sub_category,list_price
+P001,Gatorade Frost 28oz,Beverages,Sports Drinks,2.49
+P002,Gatorade Cool Blue 28oz,Beverages,Sports Drinks,2.49
+P003,Gatorade Glacier Freeze 28oz,Beverages,Sports Drinks,2.49
+P004,Gatorade Zero Lemon-Lime,Beverages,Sports Drinks,2.49
+P005,Mountain Dew Kickstart,Beverages,Energy,2.29
+P006,Rockstar Original,Beverages,Energy,2.99
+P007,Pepsi 20oz,Beverages,Carbonated,1.99
+P008,Pepsi Zero 20oz,Beverages,Carbonated,1.99
+P009,Mountain Dew 20oz,Beverages,Carbonated,1.99
+P010,Mtn Dew Code Red 20oz,Beverages,Carbonated,1.99
+P011,Aquafina 20oz,Beverages,Water,1.59
+P012,LIFEWTR 23.7oz,Beverages,Water,2.49
+P013,Lipton Pure Leaf Sweet Tea,Beverages,Tea & Coffee,2.79
+P014,Starbucks Frappuccino,Beverages,Tea & Coffee,3.49
+P015,Lay's Classic 2.625oz,Snacks,Salty,1.99
+P016,Doritos Nacho Cheese 2.75oz,Snacks,Salty,1.99
+P017,Cheetos Crunchy 2oz,Snacks,Salty,1.79
+P018,Ruffles Cheddar Sour Cream,Snacks,Salty,1.99
+P019,SunChips Harvest Cheddar,Snacks,Salty,1.99
+P020,Tostitos Scoops 10oz,Snacks,Tortilla,4.49
+P021,Frito-Lay Mixed Nuts,Snacks,Nuts & Seeds,4.99
+P022,Quaker Chewy Granola Bar,Snacks,Bars,0.99
+P023,Gatorade Recover Whey Bar,Snacks,Bars,2.49
+P024,Quaker Oats Old Fashioned,Breakfast,Cereal,4.99
+P025,Cap'n Crunch Original,Breakfast,Cereal,3.99
