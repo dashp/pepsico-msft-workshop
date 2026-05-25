@@ -74,7 +74,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
     ```python
     import os, requests
 
-    BASE = "https://raw.githubusercontent.com/<your-org>/pepsico-msft-workshop/main/workshop/Allfiles/lab01"
+    BASE = "https://raw.githubusercontent.com/pradiptadash_microsoft/pepsico-msft-workshop/main/Allfiles/lab01"
     FILES = ["sales.csv", "dim_store.csv", "dim_product.csv"]
 
     os.makedirs("/lakehouse/default/Files/raw", exist_ok=True)

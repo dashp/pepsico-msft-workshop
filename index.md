@@ -1,6 +1,6 @@
 ## Content Directory
 
-Required lab files can be [DOWNLOADED HERE](https://github.com/<your-org>/pepsico-msft-workshop/archive/main.zip)
+Required lab files can be [DOWNLOADED HERE](https://github.com/pradiptadash_microsoft/pepsico-msft-workshop/archive/main.zip)
 
 ## Labs
 

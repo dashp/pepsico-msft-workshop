@@ -2,7 +2,7 @@
 
 This repository contains the hands-on labs and demos for the **Day 1 Data + Data Science** track of the PepsiCo × Microsoft technical workshop. The site is published to GitHub Pages and rendered with Jekyll, in the same style as the Microsoft Learning catalogs (e.g. AZ-104).
 
-🌐 **Live site:** `https://<your-org>.github.io/pepsico-msft-workshop/`
+🌐 **Live site:** `https://pradiptadash_microsoft.github.io/pepsico-msft-workshop/`
 
 ## Repository layout
 
