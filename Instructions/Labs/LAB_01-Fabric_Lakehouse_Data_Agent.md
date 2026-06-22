@@ -152,8 +152,6 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
 8. **Click** the `gold_sales` table name in the explorer (single-click). A preview opens in the main canvas. Confirm rows render with **all 13 joined columns**: `sale_date`, `store_id`, `store_name`, `city`, `state`, `region`, `product_id`, `product_name`, `category`, `sub_category`, `list_price`, `units_sold`, `revenue`.
 
-    > **Note**: Older lab guides reference "right-click → Preview" — newer Fabric UI removed that option. Single-click on the table name is now the way to preview.
-
 ---
 
 ## Task 3: Build a Direct Lake semantic model with DAX measures
