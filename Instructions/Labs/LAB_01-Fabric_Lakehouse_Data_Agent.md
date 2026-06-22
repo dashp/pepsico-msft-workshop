@@ -4,7 +4,7 @@
 
 In this lab you learn to build a complete data product in **Microsoft Fabric**. You will ingest sample retail data into a **Lakehouse** using a Spark notebook, curate it through Bronze → Silver → Gold tables, build a **Direct Lake Power BI semantic model** with DAX measures, create a Power BI report, and finally create a **Fabric Data Agent** that answers natural-language questions over the curated tables.
 
-The Data Agent you build in this lab is consumed by the Day 2 *Agentic RAG with Foundry IQ + Data Agent + Tools* lab.
+The Data Agent you build in this lab lets business users ask natural-language questions over the curated dataset.
 
 This lab requires an Azure subscription and a Microsoft Fabric capacity. You may change the region, but the steps are written using **Sweden Central**.
 
@@ -33,7 +33,7 @@ Your organization wants a single place where the demand-planning team can ask pl
 - Task 3: Build a Direct Lake semantic model with DAX measures.
 - Task 4: Create a quick Power BI report.
 - Task 5: Create and test a Fabric Data Agent.
-- Task 6: Validate and hand off to Day 2.
+- Task 6: Validate your work.
 
 ---
 
@@ -315,7 +315,7 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 ---
 
-## Task 6: Validate and hand off to Day 2
+## Task 6: Validate your work
 
 Confirm each item below before leaving the lab.
 
@@ -325,24 +325,11 @@ Confirm each item below before leaving the lab.
 - [ ] Power BI report renders three visuals.
 - [ ] Data Agent answers all four test prompts.
 
-### Hand-off to Day 2
-
-The Data Agent `agent-pepsi-sales-<yourName>` is now available for the Day 2 lab **Agentic RAG with Foundry IQ + Data Agent + Tools**. To allow Sandeep's Foundry agent to call it, share the Fabric workspace with the Foundry agent's managed identity at the **Viewer** role.
-
-```bash
-# Optional — example using Fabric REST API (requires a Fabric admin token)
-# Replace placeholders before running.
-curl -X POST "https://api.fabric.microsoft.com/v1/workspaces/<workspaceId>/roleAssignments" \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{ "principal": { "id": "<foundry-mi-objectId>", "type": "ServicePrincipal" }, "role": "Viewer" }'
-```
-
 ---
 
 ## Review
 
-In this lab you built a complete Fabric data product — a Lakehouse with medallion architecture, a Direct Lake semantic model with DAX measures, a Power BI report, and a Fabric Data Agent that grounds natural-language answers on your curated tables. You also confirmed that the agent is consumable by a downstream Foundry agent in Day 2.
+In this lab you built a complete Fabric data product — a Lakehouse with medallion architecture, a Direct Lake semantic model with DAX measures, a Power BI report, and a Fabric Data Agent that grounds natural-language answers on your curated tables.
 
 ## Troubleshooting
 
