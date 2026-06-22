@@ -37,27 +37,33 @@ Your organization wants a single place where the demand-planning team can ask pl
 
 ---
 
-## Task 1: Open your pre-provisioned workspace and create a Lakehouse
+## Task 1: Create a Fabric workspace and Lakehouse
 
-The workshop organizers have pre-provisioned **one Fabric workspace per attendee**, each pre-bound to the workshop's Fabric capacity and with you as **Admin**. You will work entirely inside your own workspace.
-
-> Your workspace name was given to you on a handout (e.g. `ws-pepsi-day2-jdoe`). The `<yourId>` suffix in the rest of this lab refers to that same suffix — use it consistently for every artifact you create.
+In this task you will create your own Fabric workspace, bind it to the workshop capacity, and add a Lakehouse inside it.
 
 1. Sign in to the **Microsoft Fabric portal** — `https://app.fabric.microsoft.com`.
 
-2. In the left navigation, select **Workspaces**, and open **`ws-pepsi-day2-<yourId>`** from the list.
+2. In the left navigation, select **Workspaces** → **+ New workspace**.
 
-    > If you cannot see your workspace, paste the **WorkspaceUrl** from your handout directly into the browser. If that still fails, ask the workshop team — your access has not been provisioned.
+3. Configure the workspace:
 
-    > **Trainer / dry-run only**: If you are testing this lab outside the workshop and no workspace has been pre-provisioned, create one yourself: left nav → **Workspaces** → **+ New workspace** → name `ws-pepsi-day2-<yourId>` → expand **Advanced** → **License mode: Fabric capacity** → pick the workshop capacity → **Apply**. Then continue with step 4.
+    | Setting | Value |
+    |---|---|
+    | **Name** | `ws-pepsi-<yourName>` (e.g. `ws-pepsi-jdoe`) |
+    | **Advanced → License mode** | **Fabric capacity** |
+    | **Advanced → Capacity** | Select the workshop capacity from the dropdown |
 
-3. Confirm at the top of the workspace that it is bound to a Fabric capacity (a capacity badge is shown next to the workspace name). You do **not** need to create a workspace or pick a capacity.
+    Click **Apply**.
 
-4. From your workspace, click **+ New item**, search for **Lakehouse**, and select it.
+    > If the capacity dropdown is empty, ask the trainer — your account may not have been granted access to the workshop capacity yet.
 
-5. **Name** the Lakehouse `lh_pepsi_<yourId>`, then click **Create**.
+4. Confirm the workspace opens and a **capacity badge** (diamond icon) appears next to the workspace name in the top bar — this means compute is available.
 
-6. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
+5. From your workspace, click **+ New item**, search for **Lakehouse**, and select it.
+
+6. **Name** the Lakehouse `lh_pepsi_<yourName>`, then click **Create**.
+
+7. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
 
     ![Screenshot of the empty Lakehouse explorer.](../media/LAB1/lab01-task1-lakehouse-empty.png)
 
@@ -69,7 +75,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
 1. From your workspace, select **+ New item**, choose **Notebook**, and name it `nb_build_gold`.
 
-2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_<yourId>`, and **set it as the default Lakehouse** by selecting the radio button next to its name. Confirm the radio button is filled (⬤) — only the *default* lakehouse mounts at `/lakehouse/default/`.
+2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_<yourName>`, and **set it as the default Lakehouse** by selecting the radio button next to its name. Confirm the radio button is filled (⬤) — only the *default* lakehouse mounts at `/lakehouse/default/`.
 
     > **If you skip "set as default"**: the notebook will look attached and the Files browser will work, but Spark cells will fail with `Operation failed: "Bad Request", 400, HEAD ... user/trusted-service-user/Files/raw/...`. The path containing `user/trusted-service-user/` is the giveaway — Spark fell back to a session-local namespace because no default lakehouse was set.
 
@@ -228,9 +234,9 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 >
 > **Naming note**: Fabric Data Agent UI naming has shifted across releases. If you don't see **Data agent** in the **+ New item** menu, look for **AI skill**. The behaviour is the same.
 
-1. From your workspace, select **+ New item**, search for **Data agent**, and name it `agent-pepsi-sales-<yourId>`.
+1. From your workspace, select **+ New item**, search for **Data agent**, and name it `agent-pepsi-sales-<yourName>`.
 
-2. In the agent designer, click **Add data source**. Select **Lakehouse**, then choose `lh_pepsi_<yourId>`.
+2. In the agent designer, click **Add data source**. Select **Lakehouse**, then choose `lh_pepsi_<yourName>`.
 
 3. In the **Select tables** dialog, select `gold_sales`, `silver_dim_store`, and `silver_dim_product`. Click **Add**.
 
@@ -276,7 +282,7 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 5. Click **Save**, then click **Publish** (top toolbar). In the **Publish data agent** dialog:
 
-    - **Name**: leave as `agent-pepsi-sales-<yourId>`.
+    - **Name**: leave as `agent-pepsi-sales-<yourName>`.
     - **Description of purpose and capabilities**: paste a short description such as:
 
         ```text
@@ -321,7 +327,7 @@ Confirm each item below before leaving the lab.
 
 ### Hand-off to Day 2
 
-The Data Agent `agent-pepsi-sales-<yourId>` is now available for the Day 2 lab **Agentic RAG with Foundry IQ + Data Agent + Tools**. To allow Sandeep's Foundry agent to call it, share the Fabric workspace with the Foundry agent's managed identity at the **Viewer** role.
+The Data Agent `agent-pepsi-sales-<yourName>` is now available for the Day 2 lab **Agentic RAG with Foundry IQ + Data Agent + Tools**. To allow Sandeep's Foundry agent to call it, share the Fabric workspace with the Foundry agent's managed identity at the **Viewer** role.
 
 ```bash
 # Optional — example using Fabric REST API (requires a Fabric admin token)
