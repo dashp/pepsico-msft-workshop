@@ -6,7 +6,15 @@ In this lab you learn to build a complete data product in **Microsoft Fabric**. 
 
 The Data Agent you build in this lab is consumed by the Day 2 *Agentic RAG with Foundry IQ + Data Agent + Tools* lab.
 
-This lab requires an Azure subscription and a Microsoft Fabric capacity. You may change the region, but the steps are written using **East US 2**.
+This lab requires an Azure subscription and a Microsoft Fabric capacity. You may change the region, but the steps are written using **Sweden Central**.
+
+> **Capacity note**: Task 5 (Fabric Data Agent) requires Fabric capacity **F64 or higher**, or a **Fabric Trial** capacity. If your workshop is on **F2-F32**, the trainer will scale the capacity to F64 before Task 5 starts. Tasks 1-4 run fine on any SKU.
+
+## Prerequisites — verify before you start
+
+- [ ] You can sign in to `https://app.fabric.microsoft.com` with your workshop account.
+- [ ] You have a **Fabric** or **Power BI Pro** license assigned (check at `https://myaccount.microsoft.com → Subscriptions`). Without one you will hit `AppMetadataInaccessible` when opening a workspace.
+- [ ] You can see the workshop's Fabric capacity in your workspace dropdown.
 
 ## Estimated timing: 60 minutes
 
@@ -40,6 +48,8 @@ The workshop organizers have pre-provisioned **one Fabric workspace per attendee
 2. In the left navigation, select **Workspaces**, and open **`ws-pepsi-day2-<yourId>`** from the list.
 
     > If you cannot see your workspace, paste the **WorkspaceUrl** from your handout directly into the browser. If that still fails, ask the workshop team — your access has not been provisioned.
+
+    > **Trainer / dry-run only**: If you are testing this lab outside the workshop and no workspace has been pre-provisioned, create one yourself: left nav → **Workspaces** → **+ New workspace** → name `ws-pepsi-day2-<yourId>` → expand **Advanced** → **License mode: Fabric capacity** → pick the workshop capacity → **Apply**. Then continue with step 4.
 
 3. Confirm at the top of the workspace that it is bound to a Fabric capacity (a capacity badge is shown next to the workspace name). You do **not** need to create a workspace or pick a capacity.
 
@@ -132,6 +142,10 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
 7. In the Lakehouse explorer, expand **Tables** and confirm all seven Delta tables are present.
 
+    > **If you don't see them**: the Lakehouse explorer does **not** auto-refresh after Spark writes. Click the **⋮** next to **Tables** → **Refresh**, or hit **F5**.
+    >
+    > **If you see a `dbo` folder under Tables**: your lakehouse is *schema-enabled* (a newer Fabric feature). All seven tables will be **under** `dbo`. This is normal and changes nothing for the rest of the lab — code that references `bronze_sales` etc. still resolves correctly.
+
     ![Screenshot of the Lakehouse explorer showing seven Delta tables.](../media/lab01-task2-tables.png)
 
 8. Right-click `gold_sales` → **Preview** and confirm rows render with the joined columns.
@@ -155,22 +169,22 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
     ![Screenshot of the New semantic model dialog.](../media/lab01-task3-new-model.png)
 
-4. In the model view, select **+ New measure** and add the following measures one at a time:
+4. In the model view, select **+ New measure** and add the following measures one at a time.
+
+    > **How the measure editor works**: The **Name** field is in the **Properties panel on the right**, separate from the **Formula** field at the top. **Type the formula manually** and dismiss IntelliSense popups with **Esc** — if you accept an autocomplete suggestion of a measure name while editing that same measure, you will create a **circular dependency** error.
+    >
+    > After typing the formula, **verify the Name** in the Properties panel matches what you intended before clicking away. If it still says `Measure` (the default), rename it.
+
+    | # | Name (Properties panel) | Formula |
+    |---|---|---|
+    | 1 | `Total Units` | `SUM(gold_sales[units_sold])` |
+    | 2 | `Total Revenue` | `SUM(gold_sales[revenue])` |
+    | 3 | `Avg Selling Price` | `DIVIDE([Total Revenue], [Total Units])` |
+    | 4 | `Revenue MoM %` | See block below |
+
+    Formula for measure 4:
 
     ```dax
-    Total Units = SUM ( gold_sales[units_sold] )
-    ```
-
-    ```dax
-    Total Revenue = SUM ( gold_sales[revenue] )
-    ```
-
-    ```dax
-    Avg Selling Price = DIVIDE ( [Total Revenue], [Total Units] )
-    ```
-
-    ```dax
-    Revenue MoM % =
     VAR _curr = [Total Revenue]
     VAR _prev =
         CALCULATE ( [Total Revenue],
@@ -194,7 +208,9 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
     |---|---|
     | Card | `[Total Revenue]` |
     | Stacked bar | `[Total Revenue]` by `region` (descending) |
-    | Line chart | `[Total Revenue]` by `sale_date` (month grain) |
+    | Line chart | `[Total Revenue]` by `sale_date` |
+
+    > **Tip for the line chart**: After dropping `sale_date` on the X-axis, click the field's dropdown in the visualizations pane and switch from **Date hierarchy** to **Month** (or use the Date hierarchy and drill up to month). The default daily grain produces ~150 noisy points that are hard to read in a demo.
 
 3. **Save** the report as `rpt_pepsi_sales_overview`.
 
@@ -206,7 +222,9 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 In this task, you will create a Fabric Data Agent grounded on your curated Lakehouse tables, and ask it natural-language questions.
 
-> **Note**: Fabric Data Agent UI naming has shifted across releases. If you don't see **Data agent** in the **+ New item** menu, look for **AI skill**. The behaviour is the same.
+> **Capacity requirement**: This task requires Fabric capacity **F64 or higher** (or a Fabric Trial capacity). If `+ New item` does not show **Data agent**, ask the trainer to scale the workshop capacity up.
+>
+> **Naming note**: Fabric Data Agent UI naming has shifted across releases. If you don't see **Data agent** in the **+ New item** menu, look for **AI skill**. The behaviour is the same.
 
 1. From your workspace, select **+ New item**, search for **Data agent**, and name it `agent-pepsi-sales-<yourId>`.
 
@@ -214,14 +232,25 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 3. In the **Select tables** dialog, select `gold_sales`, `silver_dim_store`, and `silver_dim_product`. Click **Add**.
 
+    > If your tables appear with a `dbo_` prefix (schema-enabled lakehouse), that is normal — pick them as listed.
+
     ![Screenshot of selecting tables for the Data Agent.](../media/lab01-task5-tables.png)
 
-4. In the **Instructions** pane, paste the following:
+4. In the **Instructions** pane, paste the following. **The DATA DICTIONARY section is critical** — without it the agent will fail on prompts that use full state names like "Texas" because the underlying data is stored as 2-letter codes.
 
     ```text
     You are a sales-analytics assistant grounded on the gold_sales table
     and its dimensions.
 
+    DATA DICTIONARY
+    - The `state` column uses 2-letter US state abbreviations (e.g. TX, CA,
+      NY). If a user asks about a state by full name (e.g. "Texas"),
+      translate to the abbreviation before filtering.
+    - The `region` column uses these values: South Central, Southeast,
+      Mountain, Midwest, Pacific, Northeast.
+    - All revenue values are USD. All dates are in 2026.
+
+    BEHAVIOUR
     - If a date range is not specified, default to the most recent 90 days.
     - Numeric answers must include the unit (units, USD).
     - When asked for "top N", default to N = 5 unless specified.
@@ -229,20 +258,25 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
       explicitly. Do not invent values.
     ```
 
-5. Click **Save**, then **Test**. The test pane opens on the right.
+5. Click **Save**, **then click Publish** (top toolbar).
 
-6. Run the following prompts one at a time and confirm a sensible answer:
+    > **Save vs Publish**: *Save* persists your edit. *Publish* makes it effective at runtime. Until you click **Publish**, the test pane on the right will still use the previously published version of your instructions — so any prompt you run will appear to ignore your changes. **Always publish after editing instructions.**
+
+6. Run the following prompts one at a time in the test pane and confirm a sensible answer. The first prompt will take 20-30 seconds (cold start); subsequent prompts respond in 5-15 seconds.
 
     | Prompt | Expected behaviour |
     |---|---|
-    | `What was total revenue last month by region?` | Grouped table by region |
+    | `What was total revenue last month by region?` | 6 regions grouped, sorted desc, with USD unit |
     | `Which product had the highest units sold in the last 30 days?` | Single product + units |
-    | `Show me the top 5 stores by revenue this quarter.` | 5-row table sorted desc |
-    | `How many distinct products did we sell in Texas?` | Single number |
+    | `Show me the top 5 stores by revenue this quarter.` | 5-row ranked table |
+    | `How many distinct products did we sell in Texas?` | Single number (the DATA DICTIONARY translates Texas → TX) |
 
     ![Screenshot of the Data Agent test pane.](../media/lab01-task5-test.png)
 
-7. If a prompt fails, refine the **Instructions** pane and **Save** again. The agent re-grounds on the next call.
+7. If a prompt fails or returns "no data" when you expect data:
+    - Confirm you clicked **Publish** after the last instruction edit.
+    - Confirm the right tables are listed under the data source on the left.
+    - Try rephrasing using exact column codes (e.g. `TX` instead of `Texas`) to isolate whether the issue is the agent's translation or the data itself.
 
 ---
 
@@ -281,6 +315,7 @@ In this lab you built a complete Fabric data product — a Lakehouse with medall
 |---|---|---|
 | `requests` 404 on the GitHub raw URL | Workshop repo URL not updated | Replace `<your-org>` in the cell with the workshop repo path given on Day 1 |
 | Notebook can't write to `Files/` | Default Lakehouse not attached | Left panel → **Add Lakehouse** → set as default |
+| Tables don't appear in the Lakehouse explorer after Spark cells succeed | Fabric UI does not auto-refresh the table tree | Click the **⋮** next to **Tables** → **Refresh**, or hit **F5**. Tables will be under the `dbo` schema if the Lakehouse is schema-enabled. |
 | Semantic model in **Import** mode | Wrong creation entry point | Always create from **Lakehouse → New semantic model** |
 | Data Agent answers *"I don't know"* | Instructions too restrictive | Loosen the 90-day default; confirm the right tables are added |
 | `gold_sales` count is 0 | Date column parse failure | Confirm `sale_date` format in `sales.csv` and adjust `to_date` mask |
