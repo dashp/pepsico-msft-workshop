@@ -317,13 +317,15 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 ## Task 6: Validate your work
 
-Confirm each item below before leaving the lab.
+Confirm each item below before moving on.
 
 - [ ] `gold_sales` has ~30,000 rows with joined dimension columns.
 - [ ] Semantic model `sm_pepsi_sales` is in **Direct Lake** storage mode (semantic model settings → **Storage mode**).
 - [ ] Four DAX measures evaluate without errors.
 - [ ] Power BI report renders three visuals.
 - [ ] Data Agent answers all four test prompts.
+
+✅ **Lab 01 complete** — you now have a fully working Fabric data product. Continue to [**Lab 02 — Real-Time Intelligence**](./LAB_02-Real_Time_Intelligence.md).
 
 ---
 
