@@ -260,7 +260,20 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
       explicitly. Do not invent values.
     ```
 
-5. Click **Save**, **then click Publish** (top toolbar).
+5. Click **Save**, then click **Publish** (top toolbar). In the **Publish data agent** dialog:
+
+    - **Name**: leave as `agent-pepsi-sales-<yourId>`.
+    - **Description of purpose and capabilities**: paste a short description such as:
+
+        ```text
+        Sales-analytics assistant for the PepsiCo retail demo dataset.
+        Answers natural-language questions about revenue, units sold,
+        products, stores, regions and states using the gold_sales fact
+        table joined with silver_dim_store and silver_dim_product.
+        ```
+
+    - **Also publish to the Agent Store in Microsoft 365 Copilot**: leave **Off** (workshop-only agent, not for M365 distribution).
+    - Click the green **Publish** button.
 
     > **Save vs Publish**: *Save* persists your edit. *Publish* makes it effective at runtime. Until you click **Publish**, the test pane on the right will still use the previously published version of your instructions — so any prompt you run will appear to ignore your changes. **Always publish after editing instructions.**
 
