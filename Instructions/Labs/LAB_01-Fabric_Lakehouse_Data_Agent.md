@@ -2,7 +2,7 @@
 
 ## Lab introduction
 
-In this lab you learn to build a complete data product in **Microsoft Fabric**. You will ingest sample retail data into a **Lakehouse** using a Spark notebook, curate it through Bronze → Silver → Gold tables, expose it through a **Direct Lake Power BI semantic model**, and finally create a **Fabric Data Agent** that answers natural-language questions over the curated tables.
+In this lab you learn to build a complete data product in **Microsoft Fabric**. You will ingest sample retail data into a **Lakehouse** using a Spark notebook, curate it through Bronze → Silver → Gold tables, build a **Direct Lake Power BI semantic model** with DAX measures, create a Power BI report, and finally create a **Fabric Data Agent** that answers natural-language questions over the curated tables.
 
 The Data Agent you build in this lab is consumed by the Day 2 *Agentic RAG with Foundry IQ + Data Agent + Tools* lab.
 
