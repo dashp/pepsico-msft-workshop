@@ -69,7 +69,9 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
 1. From your workspace, select **+ New item**, choose **Notebook**, and name it `nb_build_gold`.
 
-2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_<yourId>`, and set it as the **default Lakehouse**.
+2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_<yourId>`, and **set it as the default Lakehouse** by selecting the radio button next to its name. Confirm the radio button is filled (⬤) — only the *default* lakehouse mounts at `/lakehouse/default/`.
+
+    > **If you skip "set as default"**: the notebook will look attached and the Files browser will work, but Spark cells will fail with `Operation failed: "Bad Request", 400, HEAD ... user/trusted-service-user/Files/raw/...`. The path containing `user/trusted-service-user/` is the giveaway — Spark fell back to a session-local namespace because no default lakehouse was set.
 
     ![Screenshot of attaching the default Lakehouse.](../media/lab01-task2-attach-lakehouse.png)
 
@@ -148,7 +150,9 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
     ![Screenshot of the Lakehouse explorer showing seven Delta tables.](../media/lab01-task2-tables.png)
 
-8. Right-click `gold_sales` → **Preview** and confirm rows render with the joined columns.
+8. **Click** the `gold_sales` table name in the explorer (single-click). A preview opens in the main canvas. Confirm rows render with **all 13 joined columns**: `sale_date`, `store_id`, `store_name`, `city`, `state`, `region`, `product_id`, `product_name`, `category`, `sub_category`, `list_price`, `units_sold`, `revenue`.
+
+    > **Note**: Older lab guides reference "right-click → Preview" — newer Fabric UI removed that option. Single-click on the table name is now the way to preview.
 
 ---
 
