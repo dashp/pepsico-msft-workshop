@@ -24,7 +24,7 @@ Your organization wants a single place where the demand-planning team can ask pl
 
 ## Architecture diagram
 
-![Diagram of the tasks.](../media/lab01-architecture.png)
+![Diagram of the tasks.](../media/LAB1/lab01-architecture.png)
 
 ## Job skills
 
@@ -59,7 +59,7 @@ The workshop organizers have pre-provisioned **one Fabric workspace per attendee
 
 6. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
 
-    ![Screenshot of the empty Lakehouse explorer.](../media/lab01-task1-lakehouse-empty.png)
+    ![Screenshot of the empty Lakehouse explorer.](../media/LAB1/lab01-task1-lakehouse-empty.png)
 
 ---
 
@@ -73,7 +73,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
     > **If you skip "set as default"**: the notebook will look attached and the Files browser will work, but Spark cells will fail with `Operation failed: "Bad Request", 400, HEAD ... user/trusted-service-user/Files/raw/...`. The path containing `user/trusted-service-user/` is the giveaway — Spark fell back to a session-local namespace because no default lakehouse was set.
 
-    ![Screenshot of attaching the default Lakehouse.](../media/lab01-task2-attach-lakehouse.png)
+    ![Screenshot of attaching the default Lakehouse.](../media/LAB1/lab01-task2-attach-lakehouse.png)
 
 3. Paste the following cell into the first code cell and run it. This downloads the three workshop CSVs into `Files/raw/`.
 
@@ -148,7 +148,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
     >
     > **If you see a `dbo` folder under Tables**: your lakehouse is *schema-enabled* (a newer Fabric feature). All seven tables will be **under** `dbo`. This is normal and changes nothing for the rest of the lab — code that references `bronze_sales` etc. still resolves correctly.
 
-    ![Screenshot of the Lakehouse explorer showing seven Delta tables.](../media/lab01-task2-tables.png)
+    ![Screenshot of the Lakehouse explorer showing seven Delta tables.](../media/LAB1/lab01-task2-tables.png)
 
 8. **Click** the `gold_sales` table name in the explorer (single-click). A preview opens in the main canvas. Confirm rows render with **all 13 joined columns**: `sale_date`, `store_id`, `store_name`, `city`, `state`, `region`, `product_id`, `product_name`, `category`, `sub_category`, `list_price`, `units_sold`, `revenue`.
 
@@ -171,7 +171,7 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 3. Click **Confirm**. The web modeller opens.
 
-    ![Screenshot of the New semantic model dialog.](../media/lab01-task3-new-model.png)
+    ![Screenshot of the New semantic model dialog.](../media/LAB1/lab01-task3-new-model.png)
 
 4. In the model view, select **+ New measure** and add the following measures one at a time.
 
@@ -198,7 +198,7 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 5. Confirm each measure shows a green checkmark after creation.
 
-    ![Screenshot of measures in the model view.](../media/lab01-task3-measures.png)
+    ![Screenshot of measures in the model view.](../media/LAB1/lab01-task3-measures.png)
 
 ---
 
@@ -218,7 +218,7 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 3. **Save** the report as `rpt_pepsi_sales_overview`.
 
-    ![Screenshot of the saved report with three visuals.](../media/lab01-task4-report.png)
+    ![Screenshot of the saved report with three visuals.](../media/LAB1/lab01-task4-report.png)
 
 ---
 
@@ -238,7 +238,7 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
     > If your tables appear with a `dbo_` prefix (schema-enabled lakehouse), that is normal — pick them as listed.
 
-    ![Screenshot of selecting tables for the Data Agent.](../media/lab01-task5-tables.png)
+    ![Screenshot of selecting tables for the Data Agent.](../media/LAB1/lab01-task5-tables.png)
 
 4. In the **Instructions** pane, paste the following. **The DATA DICTIONARY section is critical** — without it the agent will fail on prompts that use full state names like "Texas" because the underlying data is stored as 2-letter codes.
 
@@ -275,7 +275,7 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
     | `Show me the top 5 stores by revenue this quarter.` | 5-row ranked table |
     | `How many distinct products did we sell in Texas?` | Single number (the DATA DICTIONARY translates Texas → TX) |
 
-    ![Screenshot of the Data Agent test pane.](../media/lab01-task5-test.png)
+    ![Screenshot of the Data Agent test pane.](../media/LAB1/lab01-task5-test.png)
 
 7. If a prompt fails or returns "no data" when you expect data:
     - Confirm you clicked **Publish** after the last instruction edit.
