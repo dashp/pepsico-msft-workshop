@@ -200,7 +200,7 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
     RETURN DIVIDE ( _curr - _prev, _prev )
     ```
 
-5. Confirm each measure shows a green checkmark after creation.
+5. Confirm each measure appears in the model diagram with a calculator icon (🔢). Click each measure — the formula bar should display the formula without any red error underline.
 
     ![Screenshot of measures in the model view.](../media/LAB1/lab01-task3-measures.png)
 
@@ -319,8 +319,8 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 Confirm each item below before moving on.
 
-- [ ] `gold_sales` has ~30,000 rows with joined dimension columns.
-- [ ] Semantic model `sm_pepsi_sales` is in **Direct Lake** storage mode (semantic model settings → **Storage mode**).
+- [ ] `gold_sales` has **9,500+** rows with joined dimension columns.
+- [ ] Semantic model `sm_pepsi_sales` was created from **Lakehouse → New semantic model** (this guarantees **Direct Lake** storage mode).
 - [ ] Four DAX measures evaluate without errors.
 - [ ] Power BI report renders three visuals.
 - [ ] Data Agent answers all four test prompts.
