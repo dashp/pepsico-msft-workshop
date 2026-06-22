@@ -29,31 +29,25 @@ Your organization wants a single place where the demand-planning team can ask pl
 
 ---
 
-## Task 1: Create a Fabric workspace and Lakehouse
+## Task 1: Open your pre-provisioned workspace and create a Lakehouse
 
-In this task, you will create a workspace bound to the workshop Fabric capacity and a Lakehouse to hold your data.
+The workshop organizers have pre-provisioned **one Fabric workspace per attendee**, each pre-bound to the workshop's Fabric capacity and with you as **Admin**. You will work entirely inside your own workspace.
+
+> Your workspace name was given to you on a handout (e.g. `ws-pepsi-day2-jdoe`). The `<yourId>` suffix in the rest of this lab refers to that same suffix — use it consistently for every artifact you create.
 
 1. Sign in to the **Microsoft Fabric portal** — `https://app.fabric.microsoft.com`.
 
-2. In the left navigation, select **Workspaces**, and then click **+ New workspace**.
+2. In the left navigation, select **Workspaces**, and open **`ws-pepsi-day2-<yourId>`** from the list.
 
-3. On the **Create a workspace** pane, specify the following settings:
+    > If you cannot see your workspace, paste the **WorkspaceUrl** from your handout directly into the browser. If that still fails, ask the workshop team — your access has not been provisioned.
 
-    | Setting | Value |
-    |---|---|
-    | Name | `ws-pepsi-ws-team01` (replace `team01` with your team id) |
-    | License mode | **Fabric capacity** |
-    | Capacity | the workshop capacity assigned to you |
+3. Confirm at the top of the workspace that it is bound to a Fabric capacity (a capacity badge is shown next to the workspace name). You do **not** need to create a workspace or pick a capacity.
 
-4. Select **Apply**.
+4. From your workspace, click **+ New item**, search for **Lakehouse**, and select it.
 
-    ![Screenshot of the Create a workspace pane.](../media/lab01-task1-create-workspace.png)
+5. **Name** the Lakehouse `lh_pepsi_<yourId>`, then click **Create**.
 
-5. From the new workspace, click **+ New item**, search for **Lakehouse**, and select it.
-
-6. **Name** the Lakehouse `lh_pepsi_ws_team01`, then click **Create**.
-
-7. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
+6. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
 
     ![Screenshot of the empty Lakehouse explorer.](../media/lab01-task1-lakehouse-empty.png)
 
@@ -65,7 +59,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
 1. From your workspace, select **+ New item**, choose **Notebook**, and name it `nb_build_gold`.
 
-2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_ws_team01`, and set it as the **default Lakehouse**.
+2. In the notebook's left panel, click **Add Lakehouse**, select `lh_pepsi_<yourId>`, and set it as the **default Lakehouse**.
 
     ![Screenshot of attaching the default Lakehouse.](../media/lab01-task2-attach-lakehouse.png)
 
@@ -74,7 +68,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
     ```python
     import os, requests
 
-    BASE = "https://raw.githubusercontent.com/pradiptadash/pepsico-msft-workshop/main/Allfiles/lab01"
+    BASE = "https://raw.githubusercontent.com/dashp/pepsico-msft-workshop/main/Allfiles/lab01"
     FILES = ["sales.csv", "dim_store.csv", "dim_product.csv"]
 
     os.makedirs("/lakehouse/default/Files/raw", exist_ok=True)
@@ -214,9 +208,9 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 > **Note**: Fabric Data Agent UI naming has shifted across releases. If you don't see **Data agent** in the **+ New item** menu, look for **AI skill**. The behaviour is the same.
 
-1. From your workspace, select **+ New item**, search for **Data agent**, and name it `agent-pepsi-sales-team01`.
+1. From your workspace, select **+ New item**, search for **Data agent**, and name it `agent-pepsi-sales-<yourId>`.
 
-2. In the agent designer, click **Add data source**. Select **Lakehouse**, then choose `lh_pepsi_ws_team01`.
+2. In the agent designer, click **Add data source**. Select **Lakehouse**, then choose `lh_pepsi_<yourId>`.
 
 3. In the **Select tables** dialog, select `gold_sales`, `silver_dim_store`, and `silver_dim_product`. Click **Add**.
 
@@ -256,7 +250,7 @@ In this task, you will create a Fabric Data Agent grounded on your curated Lakeh
 
 Confirm each item below before leaving the lab.
 
-- [ ] `gold_sales` has ~10,000 rows with joined dimension columns.
+- [ ] `gold_sales` has ~30,000 rows with joined dimension columns.
 - [ ] Semantic model `sm_pepsi_sales` is in **Direct Lake** storage mode (semantic model settings → **Storage mode**).
 - [ ] Four DAX measures evaluate without errors.
 - [ ] Power BI report renders three visuals.
@@ -264,7 +258,7 @@ Confirm each item below before leaving the lab.
 
 ### Hand-off to Day 2
 
-The Data Agent `agent-pepsi-sales-team01` is now available for the Day 2 lab **Agentic RAG with Foundry IQ + Data Agent + Tools**. To allow Sandeep's Foundry agent to call it, share the Fabric workspace with the Foundry agent's managed identity at the **Viewer** role.
+The Data Agent `agent-pepsi-sales-<yourId>` is now available for the Day 2 lab **Agentic RAG with Foundry IQ + Data Agent + Tools**. To allow Sandeep's Foundry agent to call it, share the Fabric workspace with the Foundry agent's managed identity at the **Viewer** role.
 
 ```bash
 # Optional — example using Fabric REST API (requires a Fabric admin token)
