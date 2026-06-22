@@ -73,7 +73,7 @@ In this task, you will use a single Spark notebook to download the workshop samp
 
     > **If you skip "set as default"**: the notebook will look attached and the Files browser will work, but Spark cells will fail with `Operation failed: "Bad Request", 400, HEAD ... user/trusted-service-user/Files/raw/...`. The path containing `user/trusted-service-user/` is the giveaway — Spark fell back to a session-local namespace because no default lakehouse was set.
 
-    ![Screenshot of attaching the default Lakehouse.](../media/LAB1/lab01-task2-attach-lakehouse.png)
+    ![Screenshot of attaching the default Lakehouse.](../media/LAB1/Notebook3.png)
 
 3. Paste the following cell into the first code cell and run it. This downloads the three workshop CSVs into `Files/raw/`.
 
