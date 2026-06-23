@@ -95,26 +95,41 @@ In this task, you will run a Python script that reads `product_descriptions.json
 
 1. On your workstation, open a terminal in the cloned workshop repo and create a virtual env:
 
+    **Windows (PowerShell):**
+    ```powershell
+    cd workshop\Allfiles\lab03
+    python -m venv .venv
+    .venv\Scripts\Activate.ps1
+    pip install --only-binary :all: -r requirements.txt
+    ```
+
+    **macOS / Linux (Bash):**
     ```bash
     cd workshop/Allfiles/lab03
     python -m venv .venv
-    .venv/Scripts/activate    # Windows
-    # source .venv/bin/activate   # macOS / Linux
+    source .venv/bin/activate
     pip install --only-binary :all: -r requirements.txt
     ```
 
     > **Tip**: The `--only-binary :all:` flag avoids compiling native extensions from source. If you see a build error about `link.exe` or `cryptography`, you are missing this flag.
 
-2. Export the workshop environment variables (your Azure OpenAI endpoint and SQL connection string were placed in Key Vault by the Bicep deployment):
+2. Set the workshop environment variables. Authentication uses your interactive Microsoft Entra session via `DefaultAzureCredential` — no passwords are stored.
 
+    **PowerShell (Windows):**
+    ```powershell
+    $env:AOAI_ENDPOINT="https://aif-workshop2026.cognitiveservices.azure.com"
+    $env:AOAI_EMBED_DEPLOYMENT="text-embedding-3-small"
+    $env:SQL_SERVER="sql-pepsiws-embmtykicepum.database.windows.net"
+    $env:SQL_DATABASE="vectordb"
+    ```
+
+    **Bash (macOS / Linux):**
     ```bash
     export AOAI_ENDPOINT="https://aif-workshop2026.cognitiveservices.azure.com"
     export AOAI_EMBED_DEPLOYMENT="text-embedding-3-small"
     export SQL_SERVER="sql-pepsiws-embmtykicepum.database.windows.net"
     export SQL_DATABASE="vectordb"
     ```
-
-    > **Note**: Authentication uses your interactive Microsoft Entra session via `DefaultAzureCredential`. No passwords are stored.
 
 3. Run the loader:
 
@@ -135,10 +150,10 @@ In this task, you will run a Python script that reads `product_descriptions.json
 
 ## Task 4: Run a cosine similarity query
 
-1. In the **Query editor**, run a similarity search against an embedded query. The function `VECTOR_DISTANCE` returns the distance — lower is more similar.
+1. In the **Query editor**, run a similarity search that compares the first document's embedding against all others. This verifies `VECTOR_DISTANCE` works on your database.
 
     ```sql
-    DECLARE @q VECTOR(1536) = CAST(CAST(@query_embedding AS NVARCHAR(MAX)) AS VECTOR(1536));
+    DECLARE @q VECTOR(1536) = (SELECT TOP 1 embedding FROM dbo.product_docs WHERE product_id = 'P001');
 
     SELECT TOP 5
         product_id, title,
@@ -147,9 +162,11 @@ In this task, you will run a Python script that reads `product_descriptions.json
     ORDER BY distance ASC;
     ```
 
-    > **Note**: You will produce the `@query_embedding` JSON string from Python in Task 5. To smoke-test the SQL itself, run `retrieve_documents.py "fastest-growing energy drink"` first and copy the embedding it prints when you pass `--print-embedding`.
+    You should see `P001` at distance 0 (identical vector) and similar products nearby.
 
-2. The function used here, `VECTOR_DISTANCE`, also supports `'euclidean'` and `'dot'`. For embeddings produced by Azure OpenAI, `'cosine'` is correct.
+2. The function `VECTOR_DISTANCE` also supports `'euclidean'` and `'dot'`. For embeddings produced by Azure OpenAI, `'cosine'` is correct.
+
+3. In **Task 5** you will use the Python script `retrieve_documents.py` which embeds a free-text query and runs the same pattern end-to-end.
 
 ---
 
