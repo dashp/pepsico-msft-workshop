@@ -11,60 +11,7 @@ This lab requires a Microsoft Fabric capacity. You may change the region, but th
 - [ ] You completed **Lab 01** (you have a workspace `ws-pepsi-<yourName>` bound to a Fabric capacity).
 - [ ] You can sign in to `https://app.fabric.microsoft.com` with your workshop account.
 
-## Estimated timing: 35 minutes (+ 15 min concepts intro)
-
-## Concepts: Fabric IQ, Real-Time Intelligence & Data Agent
-
-> **Trainer**: Use this section as the 15-minute talk before going hands-on. Cover the "why" before the "how."
-
-### What is Fabric IQ?
-
-Fabric IQ is Microsoft's **semantic layer for enterprise data** — it lets business users ask natural-language questions over governed data assets without writing code. It builds on:
-
-- **Direct Lake semantic models** (you built one in Lab 01)
-- **Copilot in Fabric** — NL queries over tables and reports
-- **Data Agents** — grounded NL→SQL assistants (you built one in Lab 01)
-
-**Key point for PepsiCo**: Fabric IQ is the convergence point where governed data meets natural language — the "last mile" between data engineers and business users.
-
-### What is Real-Time Intelligence?
-
-RTI is Fabric's streaming analytics engine — purpose-built for high-volume, low-latency event data:
-
-| Component | What it does | Analogy (AWS) |
-|---|---|---|
-| **Eventstream** | Ingest + route streaming data (no-code) | Kinesis Data Firehose |
-| **Eventhouse** | Columnar time-series store optimized for append-heavy writes | Amazon Timestream / Kinesis Data Analytics |
-| **KQL Database** | Query engine using Kusto Query Language (filter/aggregate/render) | CloudWatch Logs Insights / Athena on streaming |
-| **Real-Time Dashboard** | Live-updating visuals on top of KQL queries | CloudWatch Dashboards / Grafana |
-| **Data Activator** | Rule-based alerts triggered by streaming data conditions | CloudWatch Alarms / EventBridge rules |
-
-### How RTI fits with Data Agent + Power BI
-
-```
-Streaming source → Eventstream → Eventhouse (KQL DB)
-                                       ↓
-                              Real-Time Dashboard (live)
-                                       ↓
-                              Data Activator (alerts)
-
-Batch source → Lakehouse (Gold) → Semantic Model → Power BI Report
-                                       ↓
-                              Fabric Data Agent (NL queries)
-```
-
-**RTI handles the "right now" questions; Lakehouse handles the "what happened" questions.** Together they give PepsiCo both real-time operational visibility and historical analytics.
-
-### When to use RTI vs Lakehouse
-
-| Use RTI when… | Use Lakehouse when… |
-|---|---|
-| Data arrives continuously (IoT, POS, telemetry) | Data arrives in batches (daily feeds, CSVs) |
-| You need sub-second query freshness | Minutes/hours latency is acceptable |
-| You need alerts on live thresholds | You need DAX measures + Power BI reports |
-| Query language: KQL | Query language: Spark SQL / T-SQL / DAX |
-
----
+## Estimated timing: 35 minutes
 
 ## Lab scenario
 
@@ -72,7 +19,7 @@ Your retail operations team needs near-real-time visibility into in-store events
 
 ## Architecture diagram
 
-![Diagram of the RTI tasks.](../media/lab02-architecture.png)
+![Diagram of the RTI tasks.](../media/LAB2/lab02-architecture.png)
 
 ## Job skills
 
@@ -96,7 +43,7 @@ In this task, you will create an Eventhouse — the storage tier for streaming d
 
 4. **Name** the Eventhouse `eh_pepsi_rti` and click **Create**.
 
-    ![Screenshot of the Create Eventhouse pane.](../media/lab02-task1-create-eventhouse.png)
+    ![Screenshot of the Create Eventhouse pane.](../media/LAB2/lab2-image1.png)
 
 5. After the Eventhouse opens, the default KQL database `eh_pepsi_rti` is created automatically. Note the **Query URI** in the **Database details** card — you will use it from KQL queries.
 
@@ -104,29 +51,32 @@ In this task, you will create an Eventhouse — the storage tier for streaming d
 
 ## Task 2: Create an Eventstream and bind it to a destination table
 
-In this task, you will create an Eventstream that reads from the **Bicycles** sample source and writes to a Delta-backed KQL table.
+In this task, you will create an Eventstream that reads from the **Bicycles** sample source and writes to your Eventhouse.
 
 1. From the workspace, click **+ New item**, search for **Eventstream**, and select it.
 
 2. **Name** the Eventstream `es_pepsi_bikes` and click **Create**.
 
-3. In the Eventstream canvas, click **Use sample data**, then choose **Bicycles**. Click **Add**.
+3. In the Eventstream canvas, click **Add source** (top toolbar) → **Use sample data**. Select **Bicycles** as the sample, then click **Add**.
 
-    ![Screenshot of the Eventstream sample data picker.](../media/lab02-task2-sample-source.png)
+4. The canvas now shows three nodes: the **Bicycles** source on the left, the **es_pepsi_bikes** stream in the middle, and a **"Transform events or add destination"** placeholder on the right.
 
-4. From the source node, drag a connection to a new **destination** node. In the destination dialog, specify:
+    ![Screenshot of the Eventstream canvas with Bicycles source.](../media/LAB2/lab2-image2.png)
+
+5. Confirm data is flowing: check the **Data preview** tab at the bottom — you should see rows with columns like `BikepointID`, `Street`, `Neighbourhood`, `No_Bikes`, `No_Empty_Docks`.
+
+6. Click the **"Transform events or add destination"** box on the right. Select **Eventhouse** as the destination. Configure:
 
     | Setting | Value |
     |---|---|
-    | Destination type | **Eventhouse** |
     | Workspace | `ws-pepsi-<yourName>` |
     | Eventhouse | `eh_pepsi_rti` |
-    | Destination table | `bikes_raw` (create new) |
+    | Destination table | `bikes_new` (create new) |
     | Input data format | **JSON** |
 
-5. Click **Save**, then **Publish** the Eventstream.
+7. Click **Save**, then click **Publish** (top-right blue button). The banner says *"Changes will go live once you publish them"* — until you publish, data does not flow to the destination.
 
-    ![Screenshot of the published Eventstream graph.](../media/lab02-task2-published.png)
+    ![Screenshot of the published Eventstream graph.](../media/LAB2/lab02-task2-published.png)
 
 6. In the Eventstream **Data preview** tab, confirm rows are arriving every few seconds.
 
@@ -136,30 +86,28 @@ In this task, you will create an Eventstream that reads from the **Bicycles** sa
 
 In this task, you will query the streaming data with KQL.
 
-1. From the workspace, open the `eh_pepsi_rti` Eventhouse. Click **Explore your data** to open the KQL query editor.
+1. From the workspace, open the `eh_pepsi_rti` Eventhouse. In the top toolbar, click **Query with code** to open the KQL query editor.
 
 2. Run each query in turn and observe the result.
 
     ```kusto
-    bikes_raw
+    bikes_new
     | take 10
     ```
 
     ```kusto
-    bikes_raw
+    bikes_new
     | summarize Bikes = sum(No_Bikes), Empty = sum(No_Empty_Docks) by Neighbourhood
     | top 10 by Bikes desc
     ```
 
     ```kusto
-    bikes_raw
-    | summarize avg_bikes = avg(No_Bikes) by bin(EventProcessedUtcTime, 1m), Neighbourhood
+    bikes_new
+    | summarize avg_bikes = avg(No_Bikes) by bin(ingestion_time(), 1m), Neighbourhood
     | render timechart
     ```
 
-    ![Screenshot of a KQL timechart.](../media/lab02-task3-timechart.png)
-
-3. Pin the third query result to a new dashboard when prompted, or save the query for Task 4.
+    ![Screenshot of a KQL timechart.](../media/LAB2/lab02-task3-timechart.png)
 
 ---
 
@@ -169,12 +117,12 @@ In this task, you will assemble a one-page dashboard and raise an alert when a n
 
 1. From the workspace, click **+ New item**, search for **Real-Time Dashboard**, name it `rtd_pepsi_bikes`, and click **Create**.
 
-2. Add a **data source** pointing at the `eh_pepsi_rti` KQL database.
+2. The dashboard opens with an **Add a data source** prompt. Under **Suggested from the Workspace**, click **`eh_pepsi_rti`**. This connects the dashboard to your KQL database.
 
 3. Click **+ Add tile**. Paste the following query and click **Apply**:
 
     ```kusto
-    bikes_raw
+    bikes_new
     | summarize Bikes = sum(No_Bikes) by Neighbourhood
     | top 5 by Bikes desc
     ```
@@ -182,26 +130,39 @@ In this task, you will assemble a one-page dashboard and raise an alert when a n
 4. Change the visualization to **Bar chart**, save the tile, then add a second tile:
 
     ```kusto
-    bikes_raw
-    | summarize avg_bikes = avg(No_Bikes) by bin(EventProcessedUtcTime, 30s)
+    bikes_new
+    | summarize avg_bikes = avg(No_Bikes) by bin(ingestion_time(), 30s)
     | render timechart
     ```
 
 5. Click **Save** to persist the dashboard.
 
-    ![Screenshot of the published Real-Time Dashboard.](../media/lab02-task4-dashboard.png)
+    ![Screenshot of the published Real-Time Dashboard.](../media/LAB2/lab02-task4-dashboard.png)
 
-6. From the dashboard header, click **Set alert**. Configure:
+6. Select the **bar chart** tile, then click **Add alert** in the top toolbar. In the **Add rule** dialog, configure:
 
-    | Setting | Value |
-    |---|---|
-    | Activator | Use the default activator in this workspace |
-    | Condition | When `Bikes` is **less than** `1` |
-    | Action | **Email me** |
+    | Section | Setting | Value |
+    |---|---|---|
+    | **Details** | Rule name | `bike-availability-alert` |
+    | **Monitor** | Source | (auto-filled: `rtd_pepsi_bikes / Top 5 neighbourhoods by bikes`) |
+    | | Query | (auto-filled from the tile) |
+    | | Run query every | `5 minutes` |
+    | **Condition** | Check | **On each event when** |
+    | | Grouping field | `Neighbourhood` |
+    | | When | `Bikes` |
+    | | Condition | **Is less than** |
+    | | Value | `2` |
+    | | Occurrence | **Every time the condition is met** |
+    | **Action** | Select action | **Message to individuals** |
+    | | To | Your workshop account |
+    | | Headline | `Activator alert` |
+    | **Save location** | Workspace | `ws-pepsi-<yourName>` |
+    | | Item | **Create a new item** |
+    | | New item name | `activator-bikes` (no spaces — spaces may prevent the Create button from activating) |
 
-7. Click **Create**. When a neighbourhood empties, you receive an email.
+7. Click **Create**.
 
-    ![Screenshot of the Data Activator alert dialog.](../media/lab02-task4-alert.png)
+    ![Screenshot of the Data Activator alert dialog.](../media/LAB2/lab02-task4-alert.png)
 
 ---
 
@@ -211,7 +172,7 @@ Confirm each item below before moving on.
 
 - [ ] Eventhouse `eh_pepsi_rti` exists with a KQL database.
 - [ ] Eventstream `es_pepsi_bikes` is published and data is flowing (preview shows rows).
-- [ ] KQL `bikes_raw | take 10` returns rows.
+- [ ] KQL `bikes_new | take 10` returns rows.
 - [ ] Real-Time Dashboard `rtd_pepsi_bikes` shows a bar chart and a timechart.
 - [ ] Data Activator alert is configured.
 
@@ -228,7 +189,7 @@ In this lab you stood up an Eventhouse, ingested a live stream via Eventstream, 
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | Eventstream "no data" | Sample source paused | In the canvas, select the source node → **Start** |
-| `bikes_raw` table missing | Destination not published | Re-open the Eventstream and click **Publish** |
+| `bikes_new` table missing | Destination not published | Re-open the Eventstream and click **Publish** |
 | KQL query returns 0 rows | Table name mismatch | In the explorer, confirm the table name and quote-case match exactly |
 | Alert email not received | Activator action not configured | Open the activator → confirm **Email** action is **Enabled** |
 

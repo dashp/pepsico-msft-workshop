@@ -1,0 +1,180 @@
+<mxfile host="app.diagrams.net" modified="2026-06-22T17:10:00.000Z" agent="draw.io" type="device">
+  <diagram id="lab01-arch" name="Lab 01 Architecture">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background container: Microsoft Fabric -->
+        <mxCell id="fabric-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#0078D4;strokeWidth=2;dashed=1;dashPattern=5 5;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="280" y="60" width="860" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="fabric-label" value="Microsoft Fabric" style="text;html=1;fontSize=14;fontColor=#0078D4;fontStyle=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="290" y="65" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Source: GitHub -->
+        <mxCell id="github-icon" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn-icons-png.flaticon.com/512/25/25231.png;" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="github-label" value="&lt;b&gt;GitHub Repo&lt;/b&gt;&lt;br&gt;Sample CSVs&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sales.csv&lt;br&gt;dim_store.csv&lt;br&gt;dim_product.csv&lt;/font&gt;" style="text;html=1;fontSize=11;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="45" y="285" width="130" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Task 1: Workspace + Lakehouse -->
+        <mxCell id="workspace-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F3F3;strokeColor=#CCCCCC;strokeWidth=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="820" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="workspace-label" value="Workspace: ws-pepsi-&lt;yourName&gt;" style="text;html=1;fontSize=11;fontColor=#666666;fontStyle=2;align=left;" vertex="1" parent="1">
+          <mxGeometry x="310" y="105" width="250" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Lakehouse icon -->
+        <mxCell id="lakehouse-icon" value="" style="shape=mxgraph.azure2.data_lake;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=none;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="340" y="150" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lakehouse-label" value="&lt;b&gt;Lakehouse&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;lh_pepsi_&amp;lt;yourName&amp;gt;&lt;/font&gt;" style="text;html=1;fontSize=11;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="310" y="205" width="110" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Bronze layer -->
+        <mxCell id="bronze" value="&lt;b&gt;Bronze&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;bronze_sales&lt;br&gt;bronze_dim_store&lt;br&gt;bronze_dim_product&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A0522D;strokeColor=#6B3410;fontColor=#FFFFFF;fontSize=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="470" y="140" width="120" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Silver layer -->
+        <mxCell id="silver" value="&lt;b&gt;Silver&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;silver_sales&lt;br&gt;silver_dim_store&lt;br&gt;silver_dim_product&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#A8A8A8;strokeColor=#6E6E6E;fontColor=#FFFFFF;fontSize=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="630" y="140" width="120" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Gold layer -->
+        <mxCell id="gold" value="&lt;b&gt;Gold&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;gold_sales&lt;br&gt;(9,500+ rows, 13 cols)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DAA520;strokeColor=#8B6508;fontColor=#FFFFFF;fontSize=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="800" y="140" width="140" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows: Bronze -> Silver -> Gold -->
+        <mxCell id="a-bs" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#0078D4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="bronze" target="silver" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-sg" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#0078D4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="silver" target="gold" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: GitHub -> Lakehouse -->
+        <mxCell id="a-gh-lh" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#333333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="github-icon" target="lakehouse-icon" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-gh-lh-label" value="Spark notebook&lt;br&gt;(requests.get)" style="edgeLabel;html=1;fontSize=9;fontColor=#666666;" vertex="1" connectable="0" parent="a-gh-lh">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Lakehouse -> Bronze -->
+        <mxCell id="a-lh-br" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#0078D4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="lakehouse-icon" target="bronze" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-lh-br-label" value="saveAsTable" style="edgeLabel;html=1;fontSize=9;fontColor=#666666;" vertex="1" connectable="0" parent="a-lh-br">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Task 3: Semantic Model -->
+        <mxCell id="semantic-icon" value="" style="shape=mxgraph.azure2.power_bi;whiteSpace=wrap;html=1;fillColor=#F2C811;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="490" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="semantic-label" value="&lt;b&gt;Direct Lake&lt;br&gt;Semantic Model&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;sm_pepsi_sales&lt;br&gt;DAX: Total Revenue,&lt;br&gt;Total Units, Avg Price,&lt;br&gt;Revenue MoM %&lt;/font&gt;" style="text;html=1;fontSize=10;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="440" y="435" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Gold -> Semantic Model -->
+        <mxCell id="a-g-sm" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#F2C811;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="gold" target="semantic-icon" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="870" y="330" />
+              <mxPoint x="515" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-g-sm-label" value="&lt;b&gt;Direct Lake&lt;/b&gt; (zero-copy)" style="edgeLabel;html=1;fontSize=9;fontColor=#F2C811;fontStyle=1;" vertex="1" connectable="0" parent="a-g-sm">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Task 4: Power BI Report -->
+        <mxCell id="report-icon" value="" style="shape=mxgraph.azure2.power_bi;whiteSpace=wrap;html=1;fillColor=#F2C811;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="340" y="520" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="report-label" value="&lt;b&gt;Power BI Report&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;rpt_pepsi_sales_overview&lt;br&gt;Card · Bar · Line&lt;/font&gt;" style="text;html=1;fontSize=10;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="295" y="565" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Semantic -> Report -->
+        <mxCell id="a-sm-rpt" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#F2C811;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="semantic-icon" target="report-icon" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="405" />
+              <mxPoint x="440" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Task 5: Data Agent -->
+        <mxCell id="agent-icon" value="" style="shape=mxgraph.azure2.bot_services;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=none;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="740" y="380" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="agent-label" value="&lt;b&gt;Fabric Data Agent&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;agent-pepsi-sales&lt;br&gt;NL → SQL → Answer&lt;br&gt;&lt;i&gt;Requires F64+&lt;/i&gt;&lt;/font&gt;" style="text;html=1;fontSize=10;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="690" y="435" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Gold -> Agent -->
+        <mxCell id="a-g-agent" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#0078D4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="gold" target="agent-icon" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="870" y="330" />
+              <mxPoint x="765" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-g-agent-label" value="grounded on&lt;br&gt;Lakehouse tables" style="edgeLabel;html=1;fontSize=9;fontColor=#0078D4;fontStyle=2;" vertex="1" connectable="0" parent="a-g-agent">
+          <mxGeometry x="0.2" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User -->
+        <mxCell id="user-icon" value="" style="shape=mxgraph.azure2.user;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="960" y="380" width="40" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="user-label" value="&lt;b&gt;Business User&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:9px&quot;&gt;&lt;i&gt;&quot;How many products&lt;br&gt;did we sell in Texas?&quot;&lt;/i&gt;&lt;/font&gt;" style="text;html=1;fontSize=10;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="920" y="435" width="130" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: User -> Agent -->
+        <mxCell id="a-user-agent" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;rounded=0;strokeWidth=2;strokeColor=#9673A6;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="user-icon" target="agent-icon" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-user-agent-label" value="natural language" style="edgeLabel;html=1;fontSize=9;fontColor=#9673A6;fontStyle=2;" vertex="1" connectable="0" parent="a-user-agent">
+          <mxGeometry x="-0.1" relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Task annotations -->
+        <mxCell id="t1-ann" value="&lt;font color=&quot;#0078D4&quot;&gt;❶ Task 1&lt;/font&gt;" style="text;html=1;fontSize=9;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="250" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2-ann" value="&lt;font color=&quot;#0078D4&quot;&gt;❷ Task 2&lt;/font&gt;" style="text;html=1;fontSize=9;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="630" y="220" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3-ann" value="&lt;font color=&quot;#F2C811&quot;&gt;❸ Task 3&lt;/font&gt;" style="text;html=1;fontSize=9;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="545" y="395" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4-ann" value="&lt;font color=&quot;#F2C811&quot;&gt;❹ Task 4&lt;/font&gt;" style="text;html=1;fontSize=9;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="505" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5-ann" value="&lt;font color=&quot;#0078D4&quot;&gt;❺ Task 5&lt;/font&gt;" style="text;html=1;fontSize=9;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="795" y="395" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- OneLake label -->
+        <mxCell id="onelake-label" value="&lt;font color=&quot;#0078D4&quot;&gt;OneLake (Delta Parquet)&lt;/font&gt;" style="text;html=1;fontSize=10;fontStyle=3;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="265" width="180" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
