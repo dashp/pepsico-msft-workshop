@@ -6,7 +6,14 @@ In this lab you learn to build a **retrieval tool over Azure SQL Database** usin
 
 You will also briefly review the same pattern on **Azure Cosmos DB for NoSQL** and **Azure Database for PostgreSQL (pgvector)**. Those alternatives are read-along only — no provisioning in this lab.
 
-This lab requires an Azure subscription. The steps are written using **East US 2**.
+This lab requires an Azure subscription. The steps are written using **Sweden Central**.
+
+## Prerequisites — verify before you start
+
+- [ ] You can sign in to `https://portal.azure.com` with your workshop account.
+- [ ] **Python 3.10+** is installed on your workstation (`python --version`).
+- [ ] **Microsoft ODBC Driver 18 for SQL Server** is installed. Download from: https://learn.microsoft.com/sql/connect/odbc/download-odbc-driver-for-sql-server — choose the installer for your OS/architecture.
+- [ ] You can reach `sql-pepsiws-embmtykicepum.database.windows.net` from your network (port 1433 outbound).
 
 ## Estimated timing: 50 minutes
 
@@ -35,7 +42,7 @@ In this task, you will verify the SQL server and database that the workshop's Bi
 
 1. Sign in to the Azure portal — `https://portal.azure.com`.
 
-2. Navigate to your resource group `rg-pepsi-ws-team01`, open the SQL server `sql-pepsi-ws-team01`, then the database `db_pepsi_rag`.
+2. Navigate to your resource group `pep-azr-aisp-msft-training-lab-sbx-eus-01-rg`, open the SQL server `sql-pepsiws-embmtykicepum`, then the database `vectordb`.
 
 3. Confirm:
     - **Pricing tier**: General Purpose serverless (or workshop default).
@@ -50,7 +57,7 @@ In this task, you will verify the SQL server and database that the workshop's Bi
     SELECT @@VERSION AS sql_version;
     ```
 
-    > **Note**: If you see a "VECTOR type not supported" error in a later step, your database is on a region/SKU where `VECTOR` is not yet rolled out. Use the shared fallback database `sql-pepsi-shared.db_pepsi_rag` provided by the workshop team.
+    > **Note**: If you see a "VECTOR type not supported" error in a later step, your database is on a region/SKU where `VECTOR` is not yet rolled out. Ask the trainer for a workaround.
 
 ---
 
@@ -74,7 +81,7 @@ In this task, you will verify the SQL server and database that the workshop's Bi
 2. Confirm the table was created:
 
     ```sql
-    SELECT name, type_desc FROM sys.columns
+    SELECT name FROM sys.columns
     WHERE object_id = OBJECT_ID('dbo.product_docs');
     ```
 
@@ -93,16 +100,18 @@ In this task, you will run a Python script that reads `product_descriptions.json
     python -m venv .venv
     .venv/Scripts/activate    # Windows
     # source .venv/bin/activate   # macOS / Linux
-    pip install -r requirements.txt
+    pip install --only-binary :all: -r requirements.txt
     ```
+
+    > **Tip**: The `--only-binary :all:` flag avoids compiling native extensions from source. If you see a build error about `link.exe` or `cryptography`, you are missing this flag.
 
 2. Export the workshop environment variables (your Azure OpenAI endpoint and SQL connection string were placed in Key Vault by the Bicep deployment):
 
     ```bash
-    export AOAI_ENDPOINT="https://aoai-pepsi-shared.openai.azure.com"
+    export AOAI_ENDPOINT="https://aif-workshop2026.cognitiveservices.azure.com"
     export AOAI_EMBED_DEPLOYMENT="text-embedding-3-small"
-    export SQL_SERVER="sql-pepsi-ws-team01.database.windows.net"
-    export SQL_DATABASE="db_pepsi_rag"
+    export SQL_SERVER="sql-pepsiws-embmtykicepum.database.windows.net"
+    export SQL_DATABASE="vectordb"
     ```
 
     > **Note**: Authentication uses your interactive Microsoft Entra session via `DefaultAzureCredential`. No passwords are stored.
@@ -129,7 +138,7 @@ In this task, you will run a Python script that reads `product_descriptions.json
 1. In the **Query editor**, run a similarity search against an embedded query. The function `VECTOR_DISTANCE` returns the distance — lower is more similar.
 
     ```sql
-    DECLARE @q VECTOR(1536) = CAST(@query_embedding AS VECTOR(1536));
+    DECLARE @q VECTOR(1536) = CAST(CAST(@query_embedding AS NVARCHAR(MAX)) AS VECTOR(1536));
 
     SELECT TOP 5
         product_id, title,
@@ -223,9 +232,9 @@ In this lab you built the retrieval primitive your Day 2 agents will depend on: 
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| `Invalid object name 'dbo.product_docs'` | Wrong database selected in Query editor | Switch the database dropdown to `db_pepsi_rag` |
+| `Invalid object name 'dbo.product_docs'` | Wrong database selected in Query editor | Switch the database dropdown to `vectordb` |
 | `Login failed for user '<token>'` | Entra admin not set | Azure SQL server → **Microsoft Entra ID** → set admin |
-| `VECTOR_DISTANCE` unknown function | Region/SKU on older SQL build | Use the shared fallback DB; or switch deployment region per the workshop wiki |
+| `VECTOR_DISTANCE` unknown function | Region/SKU on older SQL build | Ask the trainer for the shared fallback DB |
 | `embed_and_load.py` throttles | AOAI rate limit | Retry with `--rate 5`; the script auto-batches |
 | `pyodbc` driver missing | ODBC Driver 18 not installed | Install **Microsoft ODBC Driver 18 for SQL Server** for your OS |
 

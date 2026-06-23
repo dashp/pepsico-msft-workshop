@@ -103,7 +103,7 @@ def main() -> None:
 
     insert_sql = (
         "INSERT INTO dbo.product_docs (product_id, title, content, embedding) "
-        "VALUES (?, ?, ?, CAST(? AS VECTOR(1536)))"
+        "VALUES (?, ?, ?, CAST(CAST(? AS NVARCHAR(MAX)) AS VECTOR(1536)))"
     )
 
     inserted = 0

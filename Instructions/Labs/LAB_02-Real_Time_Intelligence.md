@@ -4,7 +4,7 @@
 
 In this lab you learn to build a **Real-Time Intelligence (RTI)** solution in Microsoft Fabric. You will create an **Eventhouse**, ingest a sample streaming source through an **Eventstream**, query the data using **KQL**, and build a **Real-Time Dashboard** with a **data activator alert**.
 
-This lab requires a Microsoft Fabric capacity. You may change the region, but the steps are written using **Sweden Central**.
+This lab requires a Microsoft Fabric capacity. The steps work regardless of region.
 
 ## Prerequisites — verify before you start
 

@@ -68,7 +68,7 @@ def retrieve_documents(query: str, k: int = 5) -> list[dict[str, Any]]:
     with _sql() as conn, conn.cursor() as cur:
         cur.execute(
             """
-            DECLARE @q VECTOR(1536) = CAST(? AS VECTOR(1536));
+            DECLARE @q VECTOR(1536) = CAST(CAST(? AS NVARCHAR(MAX)) AS VECTOR(1536));
 
             SELECT TOP (?)
                 product_id,
