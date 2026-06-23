@@ -8,7 +8,7 @@ The Data Agent you build in this lab lets business users ask natural-language qu
 
 This lab requires an Azure subscription and a Microsoft Fabric capacity. You may change the region, but the steps are written using **Sweden Central**.
 
-> **Capacity note**: Task 5 (Fabric Data Agent) requires Fabric capacity **F64 or higher**, or a **Fabric Trial** capacity. If your workshop is on **F2-F32**, the trainer will scale the capacity to F64 before Task 5 starts. Tasks 1-4 run fine on any SKU.
+> **Note**: Task 5 (Fabric Data Agent) is an **optional trainer-led demo**. It requires a tenant-level setting that may not be enabled in your environment. The trainer will demonstrate it live. Tasks 1-4 are your hands-on exercises.
 
 ## Prerequisites — verify before you start
 
@@ -28,42 +28,40 @@ Your organization wants a single place where the demand-planning team can ask pl
 
 ## Job skills
 
-- Task 1: Create a Fabric workspace and Lakehouse.
+- Task 1: Open your workspace and create a Lakehouse.
 - Task 2: Ingest sample data and build Bronze → Silver → Gold tables.
 - Task 3: Build a Direct Lake semantic model with DAX measures.
 - Task 4: Create a quick Power BI report.
-- Task 5: Create and test a Fabric Data Agent.
+- Task 5: *(Optional — trainer demo)* Create and test a Fabric Data Agent.
 - Task 6: Validate your work.
 
 ---
 
-## Task 1: Create a Fabric workspace and Lakehouse
+## Task 1: Open your workspace and create a Lakehouse
 
-In this task you will create your own Fabric workspace, bind it to the workshop capacity, and add a Lakehouse inside it.
+The workshop organizers have pre-provisioned **one Fabric workspace per attendee**, each pre-bound to the workshop's Fabric capacity and with you as **Admin**. You will work entirely inside your own workspace.
 
-1. Sign in to the **Microsoft Fabric portal** — `https://app.fabric.microsoft.com`.
+> Your workspace name was given to you on a handout (e.g. `ws-pepsi-jdoe`). The `<yourName>` suffix in the rest of this lab refers to that same suffix — use it consistently for every artifact you create.
 
-2. In the left navigation, select **Workspaces** → **+ New workspace**.
+1. Open the **workspace URL** from your handout in a browser — it looks like:
 
-3. Configure the workspace:
+    ```
+    https://app.fabric.microsoft.com/groups/<your-workspace-id>
+    ```
 
-    | Setting | Value |
-    |---|---|
-    | **Name** | `ws-pepsi-<yourName>` (e.g. `ws-pepsi-jdoe`) |
-    | **Advanced → License mode** | **Fabric capacity** |
-    | **Advanced → Capacity** | Select the workshop capacity from the dropdown |
+    Sign in with your workshop PepsiCo account when prompted.
 
-    Click **Apply**.
+2. Confirm the workspace **`ws-pepsi-<yourName>`** opens and a **capacity badge** (diamond icon) appears next to the workspace name in the top bar — this means compute is available.
 
-    > If the capacity dropdown is empty, ask the trainer — your account may not have been granted access to the workshop capacity yet.
+    > If the URL does not work, ask the trainer for your workspace link.
 
-4. Confirm the workspace opens and a **capacity badge** (diamond icon) appears next to the workspace name in the top bar — this means compute is available.
+4. From your workspace, click **+ New item**, search for **Lakehouse**, and select it.
 
-5. From your workspace, click **+ New item**, search for **Lakehouse**, and select it.
+5. **Name** the Lakehouse `lh_pepsi_<yourName>`, then click **Create**.
 
-6. **Name** the Lakehouse `lh_pepsi_<yourName>`, then click **Create**.
+    > The dialog may show a **Lakehouse schemas** checkbox — leave it checked (default).
 
-7. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
+6. Confirm the Lakehouse explorer opens with empty `Files/` and `Tables/` sections.
 
     ![Screenshot of the empty Lakehouse explorer.](../media/LAB1/lab01-task1-lakehouse-empty.png)
 
@@ -208,7 +206,7 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 ## Task 4: Create a quick Power BI report
 
-1. From the semantic model header, click **Create report**.
+1. From the semantic model header, click **New Report**.
 
 2. Build three visuals by dragging fields from the data pane:
 
@@ -226,11 +224,11 @@ In this task, you will create a Direct Lake semantic model so Power BI and the D
 
 ---
 
-## Task 5: Create and test a Fabric Data Agent
+## Task 5: Create and test a Fabric Data Agent *(Optional — Trainer Demo)*
 
-In this task, you will create a Fabric Data Agent grounded on your curated Lakehouse tables, and ask it natural-language questions.
+> ⚠️ **This task is demonstrated live by the trainer.** It requires a tenant-level Copilot setting that may not be enabled for all participants. Follow along on screen — you do not need to complete this yourself.
 
-> **Capacity requirement**: This task requires Fabric capacity **F64 or higher** (or a Fabric Trial capacity). If `+ New item` does not show **Data agent**, ask the trainer to scale the workshop capacity up.
+In this task, the trainer will create a Fabric Data Agent grounded on the curated Lakehouse tables, and ask it natural-language questions.
 >
 > **Naming note**: Fabric Data Agent UI naming has shifted across releases. If you don't see **Data agent** in the **+ New item** menu, look for **AI skill**. The behaviour is the same.
 

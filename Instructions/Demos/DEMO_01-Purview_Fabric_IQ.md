@@ -10,12 +10,12 @@ There are no per-attendee steps — follow along in the instructor's screen.
 
 ## Demonstration scenario
 
-By the end of Labs 01–03, you have created:
+By the end of Labs 01–02, you have created:
 
-- A Fabric Lakehouse `lh_pepsi_ws_team01` with `bronze_*`, `silver_*`, and `gold_sales` tables.
-- A semantic model `sm_pepsi_sales` and a Power BI report.
-- An Azure SQL database `db_pepsi_rag` with a vector table.
-- A Fabric Data Agent `agent-pepsi-sales-team01`.
+- A Fabric Lakehouse `lh_pepsi_<yourName>` with `bronze_*`, `silver_*`, and `gold_sales` tables.
+- A semantic model `sm_pepsi_sales` and a Power BI report `rpt_pepsi_sales_overview`.
+- An Eventhouse `eh_pepsi_rti` with a streaming `bikes_new` table.
+- A Fabric Data Agent `agent-pepsi-sales-<yourName>`.
 
 This demo shows how a central governance team sees all of those assets in **one** place — and where Fabric IQ adds value the central catalog cannot.
 
