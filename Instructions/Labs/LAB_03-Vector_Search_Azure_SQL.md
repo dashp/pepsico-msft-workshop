@@ -23,7 +23,6 @@ Your downstream agents need to ground their answers on product narratives and po
 
 ## Architecture diagram
 
-![Diagram of the vector-search tasks.](../media/lab03-architecture.png)
 
 ## Job skills
 
@@ -49,7 +48,6 @@ In this task, you will verify the SQL server and database that the workshop's Bi
     - **Microsoft Entra admin**: set to your workshop login (or the team lead).
     - **Networking → Public access**: **Selected networks**, with your client IP allowed.
 
-    ![Screenshot of the Azure SQL Database overview blade.](../media/lab03-task1-sql-overview.png)
 
 4. In the database's **Query editor (preview)**, sign in with **Microsoft Entra Single sign-on**, then run:
 
@@ -85,7 +83,6 @@ In this task, you will verify the SQL server and database that the workshop's Bi
     WHERE object_id = OBJECT_ID('dbo.product_docs');
     ```
 
-    ![Screenshot of the created table columns.](../media/lab03-task2-columns.png)
 
 ---
 
@@ -144,7 +141,6 @@ In this task, you will run a Python script that reads `product_descriptions.json
     SELECT TOP 3 doc_id, product_id, title FROM dbo.product_docs;
     ```
 
-    ![Screenshot of inserted row count in the Query editor.](../media/lab03-task3-rows.png)
 
 ---
 
@@ -182,7 +178,6 @@ In this task, you will use the helper script `retrieve_documents.py`. Day 2 wrap
 
 2. The script prints the top-k matches with `product_id`, `title`, and `distance`. Confirm the results look sensible.
 
-    ![Screenshot of retrieve_documents.py terminal output.](../media/lab03-task5-retrieve.png)
 
 3. Try two more queries:
 
